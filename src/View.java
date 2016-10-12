@@ -6,46 +6,34 @@ public class View {
     public Queen[] queen = new Queen[8];
     public View(char[][] table){
         this.table = table;
-        int countQueeen = 0;
-//        for(int i=0;i<table.length;i++){
-//            for(int j=0;j<table[i].length;j++){
-//                if(table[i][j]=='q'){
-//                    this.position_x[countQueeen] = i;
-//                    this.position_y[countQueeen] = j;
-//                    countQueeen += 1;
-//                }
-//            }
         }
-    }
     public View(View view){
         for(int i=0;i<view.getTable().length;i++){
             this.table[i]= view.getTable()[i].clone();
         }
-        int countQueeen = 0;
-//        for(int i=0;i<view.getTable().length;i++){
-//            for(int j=0;j<view.getTable()[i].length;j++){
-//                if(table[i][j]=='q'){
-//                    this.position_x[countQueeen] = i;
-//                    this.position_y[countQueeen] = j;
-//                    countQueeen += 1;
-//                }
-//            }
-//        }
+    }
+    public View(){
     }
     public char[][] getTable(){
         return table;
     }
-    public void setTable(char[][] table){
+    public void setTablebyView(View view){
+        this.table = view.getTable();
+    }
+    public void setTablebytable(char[][] table){
         this.table = table;
     }
-    private void setValueInitial(){
+    public void setValueInitial(){
         this.table = new char[][]{  {' ',' ',' ',' ',' ',' ',' ',' '},
                                     {' ',' ',' ',' ',' ',' ',' ',' '},
                                     {' ',' ',' ',' ',' ',' ',' ',' '},
-                                    {'q','q','q','q','q','q','q','q'},
+                                    {' ',' ',' ',' ',' ',' ',' ',' '},
                                     {' ',' ',' ',' ',' ',' ',' ',' '},
                                     {' ',' ',' ',' ',' ',' ',' ',' '},
                                     {' ',' ',' ',' ',' ',' ',' ',' '},
                                     {' ',' ',' ',' ',' ',' ',' ',' '}};
+    }
+    public void setvalue(int position_x,int position_y,char data){
+        this.table[position_x][position_y] = data;
     }
 }
