@@ -3,18 +3,10 @@
  */
 public class Queen {
     int numberOfQueen;
-    View currentview;
-    public Queen(int numberOfQueen,View currentview){
+    public Queen(int numberOfQueen){
         this.numberOfQueen = numberOfQueen;
-        this.currentview = currentview;
     }
     public int getnumberOfQueen(){
         return numberOfQueen;
-    }
-    public int position_x(){
-        return currentview.getQueenPosition_X()[getnumberOfQueen()];
-    }
-    public int position_y(){
-        return currentview.getQueenPosition_y()[getnumberOfQueen()];
     }
 }
