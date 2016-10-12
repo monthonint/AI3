@@ -98,7 +98,7 @@ public class Main {
         }
     }
     public void move_Down_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()<view.getTable().length){
+        if(view.queen[randomqueen].getPosition_x()<view.getTable().length-1){
             if(view.getTable()[view.queen[randomqueen].getPosition_x()+1][view.queen[randomqueen].getPosition_y()]!='q'){
                 view.setvalue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
                 view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()+1);
@@ -116,7 +116,7 @@ public class Main {
         }
     }
     public void move_Right_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_y()<view.getTable().length){
+        if(view.queen[randomqueen].getPosition_y()<view.getTable().length-1){
             if(view.getTable()[view.queen[randomqueen].getPosition_x()][view.queen[randomqueen].getPosition_y()+1]!='q'){
                 view.setvalue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
                 view.queen[randomqueen].setPosition_y(view.queen[randomqueen].getPosition_y()+1);
@@ -135,7 +135,7 @@ public class Main {
         }
     }
     public void move_Up_Right_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()>0&&view.queen[randomqueen].getPosition_y()<view.getTable().length){
+        if(view.queen[randomqueen].getPosition_x()>0&&view.queen[randomqueen].getPosition_y()<view.getTable().length-1){
             if(view.getTable()[view.queen[randomqueen].getPosition_x()-1][view.queen[randomqueen].getPosition_y()+1]!='q'){
                 view.setvalue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
                 view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()-1);
@@ -145,7 +145,7 @@ public class Main {
         }
     }
     public void move_Down_Left_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()<view.getTable().length&&view.queen[randomqueen].getPosition_y()>0){
+        if(view.queen[randomqueen].getPosition_x()<view.getTable().length-1&&view.queen[randomqueen].getPosition_y()>0){
             if(view.getTable()[view.queen[randomqueen].getPosition_x()+1][view.queen[randomqueen].getPosition_y()-1]!='q'){
                 view.setvalue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
                 view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()+1);
@@ -155,8 +155,8 @@ public class Main {
         }
     }
     public void move_Down_Right_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()<view.getTable().length&&view.queen[randomqueen].getPosition_y()
-                <view.getTable().length){
+        if(view.queen[randomqueen].getPosition_x()<view.getTable().length-1&&view.queen[randomqueen].getPosition_y()
+                <view.getTable().length-1){
             if(view.getTable()[view.queen[randomqueen].getPosition_x()+1][view.queen[randomqueen].getPosition_y()+1]!='q'){
                 view.setvalue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
                 view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()+1);
