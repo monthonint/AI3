@@ -11,10 +11,10 @@ public class Queen {
     public Queen(int numberOfQueen){
         this.numberOfQueen = numberOfQueen;
     }
-    public Queen(int numberOfQueen, int[] position){
+    public Queen(int numberOfQueen, int position_x, int position_y){
         this.numberOfQueen = numberOfQueen;
-        this.position_x = position[0];
-        this.position_y = position[1];
+        this.position_x = position_x;
+        this.position_y = position_y;
     }
     public Queen(){
 
@@ -33,5 +33,20 @@ public class Queen {
     }
     public void setPosition_y(int position_y){
         this.position_y = position_y;
+    }
+    public void moveUp(){
+        if(position_y > 0) position_y--;
+    }
+    public void moveDown(){
+        if(position_y < 7) position_y++;
+    }
+    public void moveLeft(){
+        if(position_x > 0) position_x--;
+    }
+    public void moveRight(){
+        if(position_x < 7) position_x++;
+    }
+    public String toString(){
+        return "Q[" + numberOfQueen + "] - (" + position_x + "," + position_y + ")";
     }
 }
