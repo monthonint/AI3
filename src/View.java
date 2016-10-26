@@ -35,7 +35,7 @@ public class View {
                 }
             }
         }
-        return number_of_free_Q*10000;
+        return number_of_free_Q * 10000;
     }
 
     public View(){
