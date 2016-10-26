@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Random;
 
@@ -33,18 +34,6 @@ public class Queen {
     }
     public void setPosition_y(int position_y){
         this.position_y = position_y;
-    }
-    public void moveUp(){
-        if(position_y > 0) position_y--;
-    }
-    public void moveDown(){
-        if(position_y < 7) position_y++;
-    }
-    public void moveLeft(){
-        if(position_x > 0) position_x--;
-    }
-    public void moveRight(){
-        if(position_x < 7) position_x++;
     }
     public String toString(){
         return "Q[" + numberOfQueen + "] - (" + position_x + "," + position_y + ")";

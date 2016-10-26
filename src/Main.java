@@ -1,14 +1,19 @@
-import java.util.Calendar;
-import java.util.Random;
 
 /**
  * Created by monthonintraraprasit on 10/12/2016 AD.
  */
 public class Main {
+    static final int MAX = 999999999;
     public static void main(String[] args){
         View init_view = new View();
         createQueen(init_view);
         printTable(0, init_view);
+        for(int time = 1;time <= MAX;time++){
+            View next_view = moveAQueen(init_view);
+            init_view = simulatedAnnealing(init_view,next_view,time);
+            //printTable(time, init_view);
+            System.out.println(init_view.evaluateView());
+        }
     }
 
     /**
@@ -21,12 +26,49 @@ public class Main {
         while(count < 8){
             int position_x = randomNumber();
             int position_y = randomNumber();
-            if(table[position_y][position_x] != 'Q'){
-                init_view.getQueen()[count] = new Queen(count, position_x, position_y);
+            //if(table[position_y][position_x] != 'Q'){
+            if(init_view.getQueenMap().get(position_x * 10 + position_y) == null){
+                Queen new_Queen = new Queen(count, position_x, position_y);
+                init_view.getQueen()[count] = new_Queen;
                 init_view.setTableValue(position_x, position_y, 'Q');
+                init_view.getQueenMap().put(position_x * 10 + position_y, new_Queen);
                 count++;
             }
         }
+    }
+
+    public static View simulatedAnnealing(View init_view,View new_view,int time){
+        int deltaE = new_view.evaluateView()-init_view.evaluateView();
+        int T = MAX -time;
+        if(deltaE>0){
+            return new_view;
+        }
+        else{
+            double prop = Math.exp(((double)deltaE)/((double)T));
+            if(Math.random() <= prop){
+                return new_view;
+            }
+            else{
+                return init_view;
+            }
+        }
+    }
+
+    public static View moveAQueen(View view){
+        int random_Queen = randomNumber();
+        View next_View = new View(view);
+
+        Queen move_Q = next_View.getQueen()[random_Queen];
+        int new_position_x = randomNumber();
+        int new_position_y = randomNumber();
+        if(next_View.getTable()[new_position_y][new_position_x] == 'Q') return view;
+        next_View.setTableValue(move_Q.getPosition_x(), move_Q.getPosition_y(), ' ');
+        //System.out.println(move_Q.toString());
+        Queen new_Q = new Queen(random_Queen, new_position_x, new_position_y);
+        next_View.getQueen()[random_Queen] = new_Q;
+        //System.out.println(move_Q.toString());
+        next_View.setTableValue(new_Q.getPosition_x(), new_Q.getPosition_y(), 'Q');
+        return next_View;
     }
 
     /**
@@ -34,12 +76,7 @@ public class Main {
      * @return  number; maximum value = 8
      */
     public static int randomNumber(){
-        Random random = new Random(Calendar.getInstance().getTimeInMillis());
-        return (int)(random.nextDouble() * 8);
-    }
-
-    public static void moveQueen(View view){
-
+        return (int)(Math.random() * 8);
     }
 
     /**
@@ -77,81 +114,4 @@ public class Main {
         System.out.println(" -- -- -- -- -- -- -- --");
     }
 
-/*    public void move_Up_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()>0){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()-1][view.queen[randomqueen].getPosition_y()]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()-1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }
-    public void move_Down_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()<view.getTable().length-1){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()+1][view.queen[randomqueen].getPosition_y()]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()+1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }
-    public void move_Left_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_y()>0){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()][view.queen[randomqueen].getPosition_y()-1]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_y(view.queen[randomqueen].getPosition_y()-1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }
-    public void move_Right_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_y()<view.getTable().length-1){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()][view.queen[randomqueen].getPosition_y()+1]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_y(view.queen[randomqueen].getPosition_y()+1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }
-    public void move_Up_Left_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()>0&&view.queen[randomqueen].getPosition_y()>0){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()-1][view.queen[randomqueen].getPosition_y()-1]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()-1);
-                view.queen[randomqueen].setPosition_y(view.queen[randomqueen].getPosition_y()-1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }
-    public void move_Up_Right_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()>0&&view.queen[randomqueen].getPosition_y()<view.getTable().length-1){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()-1][view.queen[randomqueen].getPosition_y()+1]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()-1);
-                view.queen[randomqueen].setPosition_y(view.queen[randomqueen].getPosition_y()+1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }
-    public void move_Down_Left_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()<view.getTable().length-1&&view.queen[randomqueen].getPosition_y()>0){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()+1][view.queen[randomqueen].getPosition_y()-1]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()+1);
-                view.queen[randomqueen].setPosition_y(view.queen[randomqueen].getPosition_y()-1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }
-    public void move_Down_Right_queen(int randomqueen,View view){
-        if(view.queen[randomqueen].getPosition_x()<view.getTable().length-1&&view.queen[randomqueen].getPosition_y()
-                <view.getTable().length-1){
-            if(view.getTable()[view.queen[randomqueen].getPosition_x()+1][view.queen[randomqueen].getPosition_y()+1]!='q'){
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),' ');
-                view.queen[randomqueen].setPosition_x(view.queen[randomqueen].getPosition_x()+1);
-                view.queen[randomqueen].setPosition_y(view.queen[randomqueen].getPosition_y()+1);
-                view.setTableValue(view.queen[randomqueen].getPosition_x(),view.queen[randomqueen].getPosition_y(),'q');
-            }
-        }
-    }*/
 }
