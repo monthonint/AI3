@@ -3,7 +3,7 @@
  * Created by monthonintraraprasit on 10/12/2016 AD.
  */
 public class Main {
-    static final int MAX = 999999999;
+    static final int MAX = 5000;
     public static void main(String[] args){
         View init_view = new View();
         createQueen(init_view);
@@ -40,12 +40,14 @@ public class Main {
     public static View simulatedAnnealing(View init_view,View new_view,int time){
         int deltaE = new_view.evaluateView()-init_view.evaluateView();
         int T = MAX -time;
+        System.out.print("T = " + T);
         if(deltaE>0){
             return new_view;
         }
         else{
             double prop = Math.exp(((double)deltaE)/((double)T));
             if(Math.random() <= prop){
+                System.out.print("moved with prop = " + prop + " ");
                 return new_view;
             }
             else{
